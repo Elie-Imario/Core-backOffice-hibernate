@@ -213,7 +213,7 @@ public class profRepositoryImpl {
         professeurUniqueResult = query.uniqueResult();
         prof.setId_prof(professeurUniqueResult.getId_prof());
         prof.setNom(professeurUniqueResult.getNom());
-        prof.setPrenom(professeurUniqueResult.getNom());
+        prof.setPrenom(professeurUniqueResult.getPrenom());
         prof.setGrade(professeurUniqueResult.getGrade());
 
         resultSearch.add(prof);
