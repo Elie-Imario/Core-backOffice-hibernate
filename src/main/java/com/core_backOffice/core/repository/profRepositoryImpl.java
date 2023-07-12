@@ -151,23 +151,17 @@ public class profRepositoryImpl {
     }
 
     // SEARH PROFESSEUR
-    public List<Professeur> find(Long id, String name){
+    public List<Professeur> find(String searchParam){
         Session session = null;
         Transaction tx = null;
         List<Professeur> resultSearch = new ArrayList<>();
-        String sql;
-        if((id != null) && !(name.isBlank())){
-            sql = "SELECT p FROM Professeur p WHERE p.id_prof=?1 AND p.nom=?2";
-        }else{
-            sql = "SELECT p FROM Professeur p WHERE p.id_prof=?1 OR p.nom=?2";
-        }
+        Long _params1 = (canConverted(searchParam)) ? Long.valueOf(searchParam) : null;
+        String sql = "SELECT p FROM Professeur p WHERE p.id_prof = "+ _params1 +" OR p.nom like '%"+searchParam+ "%'";
 
         try {
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             Query<Professeur> query = session.createQuery(sql, Professeur.class);
-            query.setParameter(1, id);
-            query.setParameter(2, name);
             resultSearch = profRepositoryImpl.iterateResult(resultSearch, query);
             tx.commit();
         }catch (Exception e){
@@ -261,6 +255,15 @@ public class profRepositoryImpl {
             return 0L;
         }finally {
             if(session != null) session.close();
+        }
+    }
+
+    public boolean canConverted(String value){
+        try {
+            Long.parseLong(value);
+            return true;
+        }catch (Exception e){
+            return false;
         }
     }
 }

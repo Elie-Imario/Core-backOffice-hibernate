@@ -47,9 +47,9 @@ public class profService {
         profRepository.update(professeur_to_edit, firstName, lastname, grade);
     }
 
-    public List<Professeur> findProf(Long id, String name){
+    public List<Professeur> findProf(String searchParam){
         List<Professeur> ListProfesseur;
-        ListProfesseur = profRepository.find(id, name);
+        ListProfesseur = profRepository.find(searchParam);
 
         return ListProfesseur;
     }

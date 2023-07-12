@@ -86,7 +86,7 @@ public class salleRepositoryImpl {
         try{
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx =session.beginTransaction();
-            query= session.createQuery("SELECT s FROM Salle s", Salle.class);
+            query= session.createQuery("SELECT s FROM Salle s order by s.id_Salle desc", Salle.class);
             allSalles = salleRepositoryImpl.iterateResult(allSalles, query);
         }catch (Exception e){
             e.printStackTrace();

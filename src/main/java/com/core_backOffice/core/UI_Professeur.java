@@ -55,19 +55,20 @@ public class UI_Professeur {
             profService.updateProf(id_to_edit, newfirstname, newlastname, newgrade);
         }else if(choice == 3){
             System.out.println("---------------SEARCH FOR Prof--------------------");
-            System.out.println("Entrer l'identifiant du professeur que vous vouler rechercher:");
-            Long id_serached = sc.nextLong();
-            sc.nextLine();
-            System.out.println("Entrer ensuite son nom:");
-            String name = sc.nextLine();
+            System.out.println("Entrer les informations de recherche:");
+            String _searchParam = sc.nextLine();
 
             System.out.println("Voici le resulat de votre recherche");
             List<Professeur> profs_ = new ArrayList<>();
-            profs_ = profService.findProf(id_serached, name);
+            profs_ = profService.findProf(_searchParam);
 
-            for(Professeur professeur : profs_){
-                System.out.println("|"+professeur.getNom()+"|"+professeur.getPrenom()+"|"+professeur.getGrade()+"|");
+            if(profs_.toArray().length>0){
+                for(Professeur professeur : profs_){
+                    System.out.println("|"+professeur.getNom()+"|"+professeur.getPrenom()+"|"+professeur.getGrade()+"|");
+                }
             }
+            else System.out.println("Aucune information ne correspond à votre critère de recherche");
+
         }else if(choice == 4){
             System.out.println("Quel professeur voulez vous retirer?");
             Long id_to_delete = sc.nextLong();

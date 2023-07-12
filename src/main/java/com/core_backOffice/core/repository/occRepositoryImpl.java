@@ -158,7 +158,7 @@ public class occRepositoryImpl {
         try{
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx =session.beginTransaction();
-            query= session.createQuery("select o.id, o.prof.nom, o.prof.prenom, o.salle.designation, o.date_occupation FROM Occuper o", Object[].class);
+            query= session.createQuery("select o.id, o.prof.nom, o.prof.prenom, o.salle.designation, o.date_occupation FROM Occuper o order by o.id desc", Object[].class);
             allreservations = (List<Object[]>)query.getResultList();
 
         }catch (Exception e){
